@@ -48,8 +48,54 @@ void Pacman::Update(int elapsedTime)
 	Input::KeyboardState* keyboardState = Input::Keyboard::GetState();
 
 	// Checks if D key is pressed
+	//Movement 
+
 	if (keyboardState->IsKeyDown(Input::Keys::D))
 		_pacmanPosition->X += 0.1f * elapsedTime; //Moves Pacman across X axis
+	if (keyboardState->IsKeyDown(Input::Keys::A))	
+		_pacmanPosition->X += -0.1f * elapsedTime;
+	if (keyboardState->IsKeyDown(Input::Keys::W))
+		_pacmanPosition->Y += -0.1f * elapsedTime; //Moves Pacman across X axis
+	if (keyboardState->IsKeyDown(Input::Keys::S))
+		_pacmanPosition->Y += 0.1f * elapsedTime;
+
+	//Collision
+	/*
+	if (_pacmanPosition ->X + _pacmanSourceRect->Width > 1024)
+	{
+		_pacmanPosition->X = 1024 - _pacmanSourceRect->Width; 
+	}
+	if (_pacmanPosition->X < 0)
+	{
+		_pacmanPosition->X = 0; 
+	}
+	if (_pacmanPosition->Y + _pacmanSourceRect->Height > 768)
+	{
+		_pacmanPosition->Y = 769 - _pacmanSourceRect->Height;
+	}
+	if (_pacmanPosition->Y < 0)
+	{
+		_pacmanPosition->Y = 0;
+	}*/
+
+	//Wrapping
+
+	if (_pacmanPosition->X + _pacmanSourceRect->Width > 1024)
+	{
+		_pacmanPosition->X = 0;
+	}
+	if (_pacmanPosition->X < 0)
+	{
+		_pacmanPosition->X = 1024 - _pacmanSourceRect->Width;
+	}
+	if (_pacmanPosition->Y + _pacmanSourceRect->Height > 768)
+	{
+		_pacmanPosition->Y = 0;
+	}
+	if (_pacmanPosition->Y < 0)
+	{
+		_pacmanPosition->Y = 769 - _pacmanSourceRect->Height;
+	}
 }
 
 void Pacman::Draw(int elapsedTime)
@@ -82,4 +128,8 @@ void Pacman::Draw(int elapsedTime)
 	// Draws String
 	SpriteBatch::DrawString(stream.str().c_str(), _stringPosition, Color::Green);
 	SpriteBatch::EndDraw(); // Ends Drawing
+
+
+	/////lalalallalala amimations 
+	////enum state for what animation batch tp have for turn aorund character, set with lalalal movemnt ai based on ummmmmmmmmmmmmmmmmmmmmmmmmmmm movement position relativw 
 }
