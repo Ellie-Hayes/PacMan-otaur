@@ -28,8 +28,7 @@ private:
 	// Data to represent Munchie
 	int _frameCount;
 	Rect* _munchieRect;
-	Texture2D* _munchieBlueTexture;
-	Texture2D* _munchieInvertedTexture;
+	Vector2* _munchiePosition;
 
 	// Position for String
 	Vector2* _stringPosition;
@@ -50,6 +49,28 @@ private:
 	Vector2* _StartStringPosition;
 	bool _showStart;
 	bool _spaceKeyDown;
+
+
+	//Animations
+	int _playerDirection; 
+	int _playerFrame;
+	int _playerCurrentFrameTime;
+	const int _cPlayerFrameTime;
+
+	int _munchieFrame;
+	int _munchieCurrentFrameTime;
+	const int _cMunchieFrameTime;
+	Texture2D* _munchieSheetTexture;
+
+	int _cherryFrame;
+	int _cherryCurrentFrameTime;
+	const int _cCherryFrameTime;
+
+
+	//cherry
+	Vector2* _cherryPosition;
+	Rect* _cherrySourceRect;
+	Texture2D* _cherryTexture;
 
 public:
 	/// <summary> Constructs the Pacman class. </summary>

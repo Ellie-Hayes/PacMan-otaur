@@ -2,13 +2,21 @@
 
 #include <sstream>
 
-Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f)
+Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), _cPlayerFrameTime(250), _cMunchieFrameTime(500), _cCherryFrameTime(700)
 {
 	_frameCount = 0;
 	_paused = false;
 	_pKeyDown = false;
 	_showStart = true; 
 	_spaceKeyDown = false; 
+	_playerDirection = 0; 
+
+	_playerCurrentFrameTime = 0; 
+	_playerFrame = 0;
+	_munchieCurrentFrameTime = 0;
+	_munchieFrame = 0;
+	_cherryCurrentFrameTime = 0;
+	_cherryFrame = 0;
 
 	//Initialise important Game aspects
 	Graphics::Initialise(argc, argv, this, 1024, 768, false, 25, 25, "Pacman", 60);
@@ -22,11 +30,12 @@ Pacman::~Pacman()
 {
 	delete _pacmanTexture;
 	delete _pacmanSourceRect;
-	delete _munchieBlueTexture;
-	delete _munchieInvertedTexture;
 	delete _munchieRect;
 	delete _menuBackground; 
 	delete _StartBackground;
+	delete _munchieSheetTexture;
+	delete _cherrySourceRect;
+	delete _cherryTexture; 
 }
 
 void Pacman::LoadContent()
@@ -38,11 +47,15 @@ void Pacman::LoadContent()
 	_pacmanSourceRect = new Rect(0.0f, 0.0f, 32, 32);
 
 	// Load Munchie
-	_munchieBlueTexture = new Texture2D();
-	_munchieBlueTexture->Load("Textures/Munchie.tga", true);
-	_munchieInvertedTexture = new Texture2D();
-	_munchieInvertedTexture->Load("Textures/MunchieInverted.tga", true);
-	_munchieRect = new Rect(100.0f, 450.0f, 12, 12);
+	_munchieRect = new Rect(0.0f, 0.0f, 12, 12);
+	_munchiePosition = new Vector2(100.0f, 450.0f);
+	_munchieSheetTexture = new Texture2D();
+	_munchieSheetTexture->Load("Textures/MuchieSpritesheet.png", true);
+
+	_cherrySourceRect = new Rect(0.0f, 0.0f, 32, 32);
+	_cherryPosition = new Vector2(500.0f, 450.0f);
+	_cherryTexture = new Texture2D();
+	_cherryTexture->Load("Textures/CherrySpritesheet.png", true);
 
 	// Set string position
 	_stringPosition = new Vector2(10.0f, 25.0f);
@@ -69,16 +82,29 @@ void Pacman::Update(int elapsedTime)
 	if (!_paused && !_showStart)
 	{
 		if (keyboardState->IsKeyDown(Input::Keys::D))
+		{
 			_pacmanPosition->X += _cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+			_playerDirection = 0;
+		}
 		if (keyboardState->IsKeyDown(Input::Keys::A))
+		{
 			_pacmanPosition->X += -_cPacmanSpeed * elapsedTime;
+			_playerDirection = 2;
+		}
 		if (keyboardState->IsKeyDown(Input::Keys::W))
+		{
 			_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+			_playerDirection = 3;
+		}
 		if (keyboardState->IsKeyDown(Input::Keys::S))
+		{
 			_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
+			_playerDirection = 1;
+		}
 
-		_frameCount++;
 	}
+
+	//Menus
 
 	if (keyboardState->IsKeyDown(Input::Keys::P) && !_pKeyDown)
 	{
@@ -92,24 +118,57 @@ void Pacman::Update(int elapsedTime)
 	if (keyboardState->IsKeyDown(Input::Keys::SPACE))
 		_showStart = false;
 
-	//Wrapping
+	_playerCurrentFrameTime += elapsedTime;
 
-	if (_pacmanPosition->X + _pacmanSourceRect->Width > Graphics::GetViewportWidth())
+	if (_playerCurrentFrameTime > _cPlayerFrameTime) //if frameTime is greater than 250 increment the sprite by one, if its greater than 2 loop back
 	{
-		_pacmanPosition->X = 0;
+		_playerFrame++; 
+
+		if (_playerFrame >= 2) //only two frames change this for more sprites 
+		{
+			_playerFrame = 0;
+		}
+		_playerCurrentFrameTime = 0; 
 	}
-	if (_pacmanPosition->X < 0)
+
+	//munchie
+	_munchieCurrentFrameTime += elapsedTime;
+
+	if (_munchieCurrentFrameTime > _cMunchieFrameTime)
 	{
-		_pacmanPosition->X = Graphics::GetViewportWidth() - _pacmanSourceRect->Width;
+		_munchieFrame++;
+
+		if (_munchieFrame >= 2)
+		{
+			_munchieFrame = 0;
+		}
+		_munchieCurrentFrameTime = 0;
 	}
-	if (_pacmanPosition->Y + _pacmanSourceRect->Height > Graphics::GetViewportHeight())
+
+	_cherryCurrentFrameTime += elapsedTime;
+
+	if (_cherryCurrentFrameTime > _cCherryFrameTime)
 	{
-		_pacmanPosition->Y = 0;
+		_cherryFrame++;
+
+		if (_cherryFrame >= 2)
+		{
+			_cherryFrame = 0;
+		}
+		_cherryCurrentFrameTime = 0;
 	}
-	if (_pacmanPosition->Y < 0)
-	{
-		_pacmanPosition->Y = Graphics::GetViewportHeight() - _pacmanSourceRect->Height;
-	}
+
+	//rotating character
+	_pacmanSourceRect->Y = _pacmanSourceRect->Height * _playerDirection;
+	_pacmanSourceRect->X = _pacmanSourceRect->Width * _playerFrame; //uses spritesheets then changes the rect to show the right texture
+	_munchieRect->X = _munchieRect->Width * _munchieFrame;
+
+	//Wrapping
+	if (_pacmanPosition->X + _pacmanSourceRect->Width > Graphics::GetViewportWidth()) { _pacmanPosition->X = 0; }
+	if (_pacmanPosition->X < 0){ _pacmanPosition->X = Graphics::GetViewportWidth() - _pacmanSourceRect->Width; }
+	if (_pacmanPosition->Y + _pacmanSourceRect->Height > Graphics::GetViewportHeight()) { _pacmanPosition->Y = 0; }
+	if (_pacmanPosition->Y < 0) { _pacmanPosition->Y = Graphics::GetViewportHeight() - _pacmanSourceRect->Height; }
+	
 }
 
 void Pacman::Draw(int elapsedTime)
@@ -120,23 +179,8 @@ void Pacman::Draw(int elapsedTime)
 
 	SpriteBatch::BeginDraw(); // Starts Drawing
 	SpriteBatch::Draw(_pacmanTexture, _pacmanPosition, _pacmanSourceRect); // Draws Pacman
-
-	if (_frameCount < 30)
-	{
-		// Draws Red Munchie
-		SpriteBatch::Draw(_munchieInvertedTexture, _munchieRect, nullptr, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
-
-		_frameCount++;
-	}
-	else
-	{
-		// Draw Blue Munchie
-		SpriteBatch::Draw(_munchieBlueTexture, _munchieRect, nullptr, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
-		
-
-		if (_frameCount >= 60)
-			_frameCount = 0;
-	}
+	SpriteBatch::Draw(_munchieSheetTexture, _munchiePosition, _munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 
 	//draws menu
 	if (_paused)
@@ -157,7 +201,4 @@ void Pacman::Draw(int elapsedTime)
 	SpriteBatch::DrawString(stream.str().c_str(), _stringPosition, Color::Green);
 	SpriteBatch::EndDraw(); // Ends Drawing
 
-
-	/////lalalallalala amimations 
-	////enum state for what animation batch tp have for turn aorund character, set with lalalal movemnt ai based on ummmmmmmmmmmmmmmmmmmmmmmmmmmm movement position relativw 
 }

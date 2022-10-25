@@ -1,15 +1,1 @@
-﻿  Pacman.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\vector(2045,41): warning C4251: 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>::_Mypair': class 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' needs to have dll-interface to be used by clients of class 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>'
-          with
-          [
-              _Ty=S2D::Input::Keys
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\vector(2045): message : see declaration of 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>'
-          with
-          [
-              _Ty=S2D::Input::Keys
-          ]
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(103,53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(111,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Pacman.vcxproj -> C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Debug\Pacman.exe
+﻿LINK : fatal error LNK1168: cannot open C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Debug\Pacman.exe for writing
