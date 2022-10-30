@@ -145,6 +145,7 @@ void Pacman::Update(int elapsedTime)
 		_munchieCurrentFrameTime = 0;
 	}
 
+	//cherry
 	_cherryCurrentFrameTime += elapsedTime;
 
 	if (_cherryCurrentFrameTime > _cCherryFrameTime)
@@ -162,6 +163,7 @@ void Pacman::Update(int elapsedTime)
 	_pacmanSourceRect->Y = _pacmanSourceRect->Height * _playerDirection;
 	_pacmanSourceRect->X = _pacmanSourceRect->Width * _playerFrame; //uses spritesheets then changes the rect to show the right texture
 	_munchieRect->X = _munchieRect->Width * _munchieFrame;
+	_cherrySourceRect->X = _cherrySourceRect->Width * _cherryFrame;
 
 	//Wrapping
 	if (_pacmanPosition->X + _pacmanSourceRect->Width > Graphics::GetViewportWidth()) { _pacmanPosition->X = 0; }
