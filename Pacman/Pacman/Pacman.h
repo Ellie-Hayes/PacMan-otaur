@@ -20,6 +20,15 @@ using namespace S2D;
 class Pacman : public Game
 {
 private:
+
+	void Input(int elapsedTime, Input::KeyboardState* state);
+
+	void CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey);
+	void CheckViewportCollision();
+
+	void UpdatePacman(int elapsedTime);
+	void UpdateMunchie(int elapsedTime);
+	void UpdateCherry(int elapsedTime);
 	// Data to represent Pacman
 	Vector2* _pacmanPosition;
 	Rect* _pacmanSourceRect;
@@ -65,6 +74,8 @@ private:
 	int _cherryFrame;
 	int _cherryCurrentFrameTime;
 	const int _cCherryFrameTime;
+
+	
 
 
 	//cherry

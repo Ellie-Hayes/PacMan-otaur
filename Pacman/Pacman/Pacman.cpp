@@ -4,6 +4,7 @@
 
 Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), _cPlayerFrameTime(250), _cMunchieFrameTime(500), _cCherryFrameTime(700)
 {
+	
 	_frameCount = 0;
 	_paused = false;
 	_pKeyDown = false;
@@ -78,59 +79,95 @@ void Pacman::Update(int elapsedTime)
 	// Gets the current state of the keyboard
 	Input::KeyboardState* keyboardState = Input::Keyboard::GetState();
 
-	//Movement 
-	if (!_paused && !_showStart)
+	if (_showStart)
 	{
-		if (keyboardState->IsKeyDown(Input::Keys::D))
-		{
-			_pacmanPosition->X += _cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
-			_playerDirection = 0;
-		}
-		if (keyboardState->IsKeyDown(Input::Keys::A))
-		{
-			_pacmanPosition->X += -_cPacmanSpeed * elapsedTime;
-			_playerDirection = 2;
-		}
-		if (keyboardState->IsKeyDown(Input::Keys::W))
-		{
-			_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
-			_playerDirection = 3;
-		}
-		if (keyboardState->IsKeyDown(Input::Keys::S))
-		{
-			_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
-			_playerDirection = 1;
-		}
-
+		if (keyboardState->IsKeyDown(Input::Keys::SPACE))
+			_showStart = false;
 	}
+	else
+	{
+		CheckPaused(keyboardState, Input::Keys::P);
 
-	//Menus
+		if (!_paused)
+		{
+			Input(elapsedTime, keyboardState);
+			CheckViewportCollision();
+			UpdatePacman(elapsedTime);
+			UpdateMunchie(elapsedTime);
+			UpdateCherry(elapsedTime);
+		}
+	}
+	
+}
 
-	if (keyboardState->IsKeyDown(Input::Keys::P) && !_pKeyDown)
+
+void Pacman::Input(int elapsedTime, Input::KeyboardState* state)
+{
+	if (state->IsKeyDown(Input::Keys::D))
+	{
+		_pacmanPosition->X += _cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+		_playerDirection = 0;
+	}
+	if (state->IsKeyDown(Input::Keys::A))
+	{
+		_pacmanPosition->X += -_cPacmanSpeed * elapsedTime;
+		_playerDirection = 2;
+	}
+	if (state->IsKeyDown(Input::Keys::W))
+	{
+		_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+		_playerDirection = 3;
+	}
+	if (state->IsKeyDown(Input::Keys::S))
+	{
+		_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
+		_playerDirection = 1;
+	}
+}
+
+void Pacman::CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey)
+{
+	if (state->IsKeyDown(pauseKey) && !_pKeyDown)
 	{
 		_pKeyDown = true;
 		_paused = !_paused;
 	}
-	
-	if (keyboardState->IsKeyUp(Input::Keys::P))
+
+	if (state->IsKeyUp(pauseKey))
 		_pKeyDown = false;
+}
 
-	if (keyboardState->IsKeyDown(Input::Keys::SPACE))
-		_showStart = false;
+void Pacman::CheckViewportCollision()
+{
+	//Wrapping
+	if (_pacmanPosition->X + _pacmanSourceRect->Width > Graphics::GetViewportWidth()) { _pacmanPosition->X = 0; }
+	if (_pacmanPosition->X < 0) { _pacmanPosition->X = Graphics::GetViewportWidth() - _pacmanSourceRect->Width; }
+	if (_pacmanPosition->Y + _pacmanSourceRect->Height > Graphics::GetViewportHeight()) { _pacmanPosition->Y = 0; }
+	if (_pacmanPosition->Y < 0) { _pacmanPosition->Y = Graphics::GetViewportHeight() - _pacmanSourceRect->Height; }
+}
 
+void Pacman::UpdatePacman(int elapsedTime)
+{
 	_playerCurrentFrameTime += elapsedTime;
 
 	if (_playerCurrentFrameTime > _cPlayerFrameTime) //if frameTime is greater than 250 increment the sprite by one, if its greater than 2 loop back
 	{
-		_playerFrame++; 
+		_playerFrame++;
 
 		if (_playerFrame >= 2) //only two frames change this for more sprites 
 		{
 			_playerFrame = 0;
 		}
-		_playerCurrentFrameTime = 0; 
+		_playerCurrentFrameTime = 0;
 	}
 
+	//rotates pacman
+	_pacmanSourceRect->Y = _pacmanSourceRect->Height * _playerDirection;
+	_pacmanSourceRect->X = _pacmanSourceRect->Width * _playerFrame;  //uses spritesheets then changes the rect to show the right texture
+}
+
+void Pacman::UpdateMunchie(int elapsedTime)
+{
 	//munchie
 	_munchieCurrentFrameTime += elapsedTime;
 
@@ -145,7 +182,11 @@ void Pacman::Update(int elapsedTime)
 		_munchieCurrentFrameTime = 0;
 	}
 
-	//cherry
+	_munchieRect->X = _munchieRect->Width * _munchieFrame;
+}
+
+void Pacman::UpdateCherry(int elapsedTime)
+{
 	_cherryCurrentFrameTime += elapsedTime;
 
 	if (_cherryCurrentFrameTime > _cCherryFrameTime)
@@ -159,18 +200,7 @@ void Pacman::Update(int elapsedTime)
 		_cherryCurrentFrameTime = 0;
 	}
 
-	//rotating character
-	_pacmanSourceRect->Y = _pacmanSourceRect->Height * _playerDirection;
-	_pacmanSourceRect->X = _pacmanSourceRect->Width * _playerFrame; //uses spritesheets then changes the rect to show the right texture
-	_munchieRect->X = _munchieRect->Width * _munchieFrame;
 	_cherrySourceRect->X = _cherrySourceRect->Width * _cherryFrame;
-
-	//Wrapping
-	if (_pacmanPosition->X + _pacmanSourceRect->Width > Graphics::GetViewportWidth()) { _pacmanPosition->X = 0; }
-	if (_pacmanPosition->X < 0){ _pacmanPosition->X = Graphics::GetViewportWidth() - _pacmanSourceRect->Width; }
-	if (_pacmanPosition->Y + _pacmanSourceRect->Height > Graphics::GetViewportHeight()) { _pacmanPosition->Y = 0; }
-	if (_pacmanPosition->Y < 0) { _pacmanPosition->Y = Graphics::GetViewportHeight() - _pacmanSourceRect->Height; }
-	
 }
 
 void Pacman::Draw(int elapsedTime)
@@ -203,4 +233,7 @@ void Pacman::Draw(int elapsedTime)
 	SpriteBatch::DrawString(stream.str().c_str(), _stringPosition, Color::Green);
 	SpriteBatch::EndDraw(); // Ends Drawing
 
+	
 }
+
+
