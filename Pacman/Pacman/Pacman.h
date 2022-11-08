@@ -9,41 +9,66 @@
 #endif
 
 // Just need to include main header file
+
 #include "S2D/S2D.h"
 
 // Reduces the amount of typing by including all classes in S2D namespace
 using namespace S2D;
 
+
+
 // Declares the Pacman class which inherits from the Game class.
 // This allows us to overload the Game class methods to help us
 // load content, draw and update our game.
+
+struct Player
+{
+	Vector2* _pacmanPosition;
+	Rect* _pacmanSourceRect;
+	Texture2D* _pacmanTexture;
+	
+	int _playerDirection;
+	int _playerFrame;
+	int _playerCurrentFrameTime;
+	
+
+};
+
+struct Collectable
+{
+	Vector2* _munchiePosition;
+	Rect* _munchieRect;
+	Texture2D* _munchieSheetTexture;
+
+	int _frameCount;
+	int _munchieFrame;
+	int _munchieCurrentFrameTime;
+};
+
 class Pacman : public Game
 {
 private:
 
 	void Input(int elapsedTime, Input::KeyboardState* state);
-
 	void CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey);
 	void CheckViewportCollision();
-
 	void UpdatePacman(int elapsedTime);
 	void UpdateMunchie(int elapsedTime);
 	void UpdateCherry(int elapsedTime);
-	// Data to represent Pacman
-	Vector2* _pacmanPosition;
-	Rect* _pacmanSourceRect;
-	Texture2D* _pacmanTexture;
+	
+	Player* _player; 
+	const float _cPacmanSpeed;
+	const int _cPlayerFrameTime;
+
+	Collectable* _munchie;
+	const int _cMunchieFrameTime;
 
 	// Data to represent Munchie
-	int _frameCount;
-	Rect* _munchieRect;
-	Vector2* _munchiePosition;
+	
+	
 
 	// Position for String
 	Vector2* _stringPosition;
-
-	//Pacman attributes
-	const float _cPacmanSpeed;
 
 	// Data for Menu
 	Texture2D* _menuBackground;
@@ -59,24 +84,9 @@ private:
 	bool _showStart;
 	bool _spaceKeyDown;
 
-
-	//Animations
-	int _playerDirection; 
-	int _playerFrame;
-	int _playerCurrentFrameTime;
-	const int _cPlayerFrameTime;
-
-	int _munchieFrame;
-	int _munchieCurrentFrameTime;
-	const int _cMunchieFrameTime;
-	Texture2D* _munchieSheetTexture;
-
 	int _cherryFrame;
 	int _cherryCurrentFrameTime;
 	const int _cCherryFrameTime;
-
-	
-
 
 	//cherry
 	Vector2* _cherryPosition;

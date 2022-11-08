@@ -4,18 +4,27 @@
 
 Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), _cPlayerFrameTime(250), _cMunchieFrameTime(500), _cCherryFrameTime(700)
 {
-	
-	_frameCount = 0;
+	_player = new Player();
+
+	//int i;
+	//for (i = 0; i < 50; i++)
+	//{
+	//	_munchie[i] = new Collectable();
+	//	_munchie[i]->_munchieCurrentFrameTime = 0; 
+	//}
+
+	_munchie = new Collectable();
+	_munchie->_frameCount = 0;
 	_paused = false;
 	_pKeyDown = false;
 	_showStart = true; 
 	_spaceKeyDown = false; 
-	_playerDirection = 0; 
+	_player->_playerDirection = 0;
 
-	_playerCurrentFrameTime = 0; 
-	_playerFrame = 0;
-	_munchieCurrentFrameTime = 0;
-	_munchieFrame = 0;
+	_player->_playerCurrentFrameTime = 0;
+	_player->_playerFrame = 0;
+	_munchie->_munchieCurrentFrameTime = 0;
+	_munchie->_munchieFrame = 0;
 	_cherryCurrentFrameTime = 0;
 	_cherryFrame = 0;
 
@@ -29,29 +38,31 @@ Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), 
 
 Pacman::~Pacman()
 {
-	delete _pacmanTexture;
-	delete _pacmanSourceRect;
-	delete _munchieRect;
+	delete _player->_pacmanTexture;
+	delete _player->_pacmanSourceRect;
+	delete _munchie->_munchieRect;
 	delete _menuBackground; 
 	delete _StartBackground;
-	delete _munchieSheetTexture;
+	delete _munchie->_munchieSheetTexture;
 	delete _cherrySourceRect;
 	delete _cherryTexture; 
+	delete _player;
+	delete _munchie;
 }
 
 void Pacman::LoadContent()
 {
 	// Load Pacman
-	_pacmanTexture = new Texture2D();
-	_pacmanTexture->Load("Textures/Pacman.tga", false);
-	_pacmanPosition = new Vector2(350.0f, 350.0f);
-	_pacmanSourceRect = new Rect(0.0f, 0.0f, 32, 32);
+	_player->_pacmanTexture = new Texture2D();
+	_player->_pacmanTexture->Load("Textures/Pacman.tga", false);
+	_player->_pacmanPosition = new Vector2(350.0f, 350.0f);
+	_player->_pacmanSourceRect = new Rect(0.0f, 0.0f, 32, 32);
 
 	// Load Munchie
-	_munchieRect = new Rect(0.0f, 0.0f, 12, 12);
-	_munchiePosition = new Vector2(100.0f, 450.0f);
-	_munchieSheetTexture = new Texture2D();
-	_munchieSheetTexture->Load("Textures/MuchieSpritesheet.png", true);
+	_munchie->_munchieRect = new Rect(0.0f, 0.0f, 12, 12);
+	_munchie->_munchiePosition = new Vector2(100.0f, 450.0f);
+	_munchie->_munchieSheetTexture = new Texture2D();
+	_munchie->_munchieSheetTexture->Load("Textures/MuchieSpritesheet.png", true);
 
 	_cherrySourceRect = new Rect(0.0f, 0.0f, 32, 32);
 	_cherryPosition = new Vector2(500.0f, 450.0f);
@@ -105,23 +116,23 @@ void Pacman::Input(int elapsedTime, Input::KeyboardState* state)
 {
 	if (state->IsKeyDown(Input::Keys::D))
 	{
-		_pacmanPosition->X += _cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
-		_playerDirection = 0;
+		_player->_pacmanPosition->X += _cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+		_player->_playerDirection = 0;
 	}
 	if (state->IsKeyDown(Input::Keys::A))
 	{
-		_pacmanPosition->X += -_cPacmanSpeed * elapsedTime;
-		_playerDirection = 2;
+		_player->_pacmanPosition->X += -_cPacmanSpeed * elapsedTime;
+		_player->_playerDirection = 2;
 	}
 	if (state->IsKeyDown(Input::Keys::W))
 	{
-		_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
-		_playerDirection = 3;
+		_player->_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+		_player->_playerDirection = 3;
 	}
 	if (state->IsKeyDown(Input::Keys::S))
 	{
-		_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
-		_playerDirection = 1;
+		_player->_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
+		_player->_playerDirection = 1;
 	}
 }
 
@@ -140,49 +151,45 @@ void Pacman::CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey)
 void Pacman::CheckViewportCollision()
 {
 	//Wrapping
-	if (_pacmanPosition->X + _pacmanSourceRect->Width > Graphics::GetViewportWidth()) { _pacmanPosition->X = 0; }
-	if (_pacmanPosition->X < 0) { _pacmanPosition->X = Graphics::GetViewportWidth() - _pacmanSourceRect->Width; }
-	if (_pacmanPosition->Y + _pacmanSourceRect->Height > Graphics::GetViewportHeight()) { _pacmanPosition->Y = 0; }
-	if (_pacmanPosition->Y < 0) { _pacmanPosition->Y = Graphics::GetViewportHeight() - _pacmanSourceRect->Height; }
+	if (_player->_pacmanPosition->X + _player->_pacmanSourceRect->Width > Graphics::GetViewportWidth()) { _player->_pacmanPosition->X = 0; }
+	if (_player->_pacmanPosition->X < 0) { _player->_pacmanPosition->X = Graphics::GetViewportWidth() - _player->_pacmanSourceRect->Width; }
+	if (_player->_pacmanPosition->Y + _player->_pacmanSourceRect->Height > Graphics::GetViewportHeight()) { _player->_pacmanPosition->Y = 0; }
+	if (_player->_pacmanPosition->Y < 0) { _player->_pacmanPosition->Y = Graphics::GetViewportHeight() - _player->_pacmanSourceRect->Height; }
 }
 
 void Pacman::UpdatePacman(int elapsedTime)
 {
-	_playerCurrentFrameTime += elapsedTime;
+	_player->_playerCurrentFrameTime += elapsedTime;
 
-	if (_playerCurrentFrameTime > _cPlayerFrameTime) //if frameTime is greater than 250 increment the sprite by one, if its greater than 2 loop back
+	if (_player->_playerCurrentFrameTime > _cPlayerFrameTime) //if frameTime is greater than 250 increment the sprite by one, if its greater than 2 loop back
 	{
-		_playerFrame++;
+		_player->_playerFrame++;
 
-		if (_playerFrame >= 2) //only two frames change this for more sprites 
+		if (_player->_playerFrame >= 2) //only two frames change this for more sprites 
 		{
-			_playerFrame = 0;
+			_player->_playerFrame = 0;
 		}
-		_playerCurrentFrameTime = 0;
+		_player->_playerCurrentFrameTime = 0;
 	}
 
 	//rotates pacman
-	_pacmanSourceRect->Y = _pacmanSourceRect->Height * _playerDirection;
-	_pacmanSourceRect->X = _pacmanSourceRect->Width * _playerFrame;  //uses spritesheets then changes the rect to show the right texture
+	_player->_pacmanSourceRect->Y = _player->_pacmanSourceRect->Height * _player->_playerDirection;
+	_player->_pacmanSourceRect->X = _player->_pacmanSourceRect->Width * _player->_playerFrame;  //uses spritesheets then changes the rect to show the right texture
 }
 
 void Pacman::UpdateMunchie(int elapsedTime)
 {
 	//munchie
-	_munchieCurrentFrameTime += elapsedTime;
+	_munchie->_munchieCurrentFrameTime += elapsedTime;
 
-	if (_munchieCurrentFrameTime > _cMunchieFrameTime)
+	if (_munchie->_munchieCurrentFrameTime > _cMunchieFrameTime)
 	{
-		_munchieFrame++;
-
-		if (_munchieFrame >= 2)
-		{
-			_munchieFrame = 0;
-		}
-		_munchieCurrentFrameTime = 0;
+		_munchie->_munchieFrame++;
+		if (_munchie->_munchieFrame >= 2) { _munchie->_munchieFrame = 0; }
+		_munchie->_munchieCurrentFrameTime = 0;
 	}
 
-	_munchieRect->X = _munchieRect->Width * _munchieFrame;
+	_munchie->_munchieRect->X = _munchie->_munchieRect->Width * _munchie->_munchieFrame;
 }
 
 void Pacman::UpdateCherry(int elapsedTime)
@@ -207,11 +214,11 @@ void Pacman::Draw(int elapsedTime)
 {
 	// Allows us to easily create a string
 	std::stringstream stream;
-	stream << "Pacman X: " << _pacmanPosition->X << " Y: " << _pacmanPosition->Y;
+	stream << "Pacman X: " << _player->_pacmanPosition->X << " Y: " << _player->_pacmanPosition->Y;
 
 	SpriteBatch::BeginDraw(); // Starts Drawing
-	SpriteBatch::Draw(_pacmanTexture, _pacmanPosition, _pacmanSourceRect); // Draws Pacman
-	SpriteBatch::Draw(_munchieSheetTexture, _munchiePosition, _munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+	SpriteBatch::Draw(_player->_pacmanTexture, _player->_pacmanPosition, _player->_pacmanSourceRect); // Draws Pacman
+	SpriteBatch::Draw(_munchie->_munchieSheetTexture, _munchie->_munchiePosition, _munchie->_munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 
 	//draws menu
