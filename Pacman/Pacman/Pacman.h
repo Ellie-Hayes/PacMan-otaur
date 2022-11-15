@@ -11,7 +11,7 @@
 // Just need to include main header file
 
 #include "S2D/S2D.h"
-
+#define MUNCHIECOUNT 50
 // Reduces the amount of typing by including all classes in S2D namespace
 using namespace S2D;
 
@@ -43,29 +43,27 @@ struct Collectable
 	int _frameCount;
 	int _munchieFrame;
 	int _munchieCurrentFrameTime;
+	int _frameTime;
 };
 
 class Pacman : public Game
 {
 private:
 
-	void Input(int elapsedTime, Input::KeyboardState* state);
+	void Input(int elapsedTime, Input::KeyboardState* state, Input::MouseState* mouseState);
 	void CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey);
 	void CheckViewportCollision();
 	void UpdatePacman(int elapsedTime);
-	void UpdateMunchie(int elapsedTime);
+	void UpdateMunchie(Collectable* munchie, int elapsedTime);
 	void UpdateCherry(int elapsedTime);
 	
 	Player* _player; 
+
 	const float _cPacmanSpeed;
 	const int _cPlayerFrameTime;
 
-	Collectable* _munchie;
+	Collectable* _munchie[MUNCHIECOUNT];
 	const int _cMunchieFrameTime;
-
-	// Data to represent Munchie
-	
-	
 
 	// Position for String
 	Vector2* _stringPosition;

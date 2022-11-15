@@ -6,15 +6,17 @@ Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), 
 {
 	_player = new Player();
 
-	//int i;
-	//for (i = 0; i < 50; i++)
-	//{
-	//	_munchie[i] = new Collectable();
-	//	_munchie[i]->_munchieCurrentFrameTime = 0; 
-	//}
+	
+	for (int i = 0; i < MUNCHIECOUNT; i++)
+	{
+		_munchie[i] = new Collectable();
+		_munchie[i]->_munchieCurrentFrameTime = 0; 
+		_munchie[i]->_frameCount = 0;
+		_munchie[i]->_munchieFrame = 0;
+		_munchie[i]->_frameTime = rand() % 500 + 50; 
+	}
 
-	_munchie = new Collectable();
-	_munchie->_frameCount = 0;
+	//_munchie = new Collectable();
 	_paused = false;
 	_pKeyDown = false;
 	_showStart = true; 
@@ -23,8 +25,6 @@ Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), 
 
 	_player->_playerCurrentFrameTime = 0;
 	_player->_playerFrame = 0;
-	_munchie->_munchieCurrentFrameTime = 0;
-	_munchie->_munchieFrame = 0;
 	_cherryCurrentFrameTime = 0;
 	_cherryFrame = 0;
 
@@ -40,14 +40,22 @@ Pacman::~Pacman()
 {
 	delete _player->_pacmanTexture;
 	delete _player->_pacmanSourceRect;
-	delete _munchie->_munchieRect;
 	delete _menuBackground; 
 	delete _StartBackground;
-	delete _munchie->_munchieSheetTexture;
 	delete _cherrySourceRect;
 	delete _cherryTexture; 
 	delete _player;
 	delete _munchie;
+
+	delete _munchie[0]->_munchieSheetTexture;
+	for (int i = 0; i < MUNCHIECOUNT; i++)
+	{
+		delete _munchie[i]->_munchieRect;
+		delete _munchie[i]->_munchiePosition;
+		delete _munchie[i];
+	}
+	delete[] _munchie;
+
 }
 
 void Pacman::LoadContent()
@@ -59,10 +67,16 @@ void Pacman::LoadContent()
 	_player->_pacmanSourceRect = new Rect(0.0f, 0.0f, 32, 32);
 
 	// Load Munchie
-	_munchie->_munchieRect = new Rect(0.0f, 0.0f, 12, 12);
-	_munchie->_munchiePosition = new Vector2(100.0f, 450.0f);
-	_munchie->_munchieSheetTexture = new Texture2D();
-	_munchie->_munchieSheetTexture->Load("Textures/MuchieSpritesheet.png", true);
+
+	Texture2D* munchieTex = new Texture2D(); 
+	munchieTex->Load("Textures/MuchieSpritesheet.png", true);
+	for (int i = 0; i < MUNCHIECOUNT; i++)
+	{
+		_munchie[i]->_munchieRect = new Rect(0.0f, 0.0f, 12, 12);
+		_munchie[i]->_munchiePosition = new Vector2((rand() % Graphics:: GetViewportWidth()), (rand() % Graphics::GetViewportHeight()));
+		_munchie[i]->_munchieSheetTexture = new Texture2D();
+		_munchie[i]->_munchieSheetTexture = munchieTex;
+	}
 
 	_cherrySourceRect = new Rect(0.0f, 0.0f, 32, 32);
 	_cherryPosition = new Vector2(500.0f, 450.0f);
@@ -89,6 +103,7 @@ void Pacman::Update(int elapsedTime)
 {
 	// Gets the current state of the keyboard
 	Input::KeyboardState* keyboardState = Input::Keyboard::GetState();
+	Input::MouseState* mouseState = Input::Mouse::GetState();
 
 	if (_showStart)
 	{
@@ -101,10 +116,15 @@ void Pacman::Update(int elapsedTime)
 
 		if (!_paused)
 		{
-			Input(elapsedTime, keyboardState);
+			Input(elapsedTime, keyboardState, mouseState);
 			CheckViewportCollision();
 			UpdatePacman(elapsedTime);
-			UpdateMunchie(elapsedTime);
+
+			for (int i = 0; i < MUNCHIECOUNT; i++)
+			{
+				UpdateMunchie(_munchie[i], elapsedTime);
+			}
+
 			UpdateCherry(elapsedTime);
 		}
 	}
@@ -112,7 +132,7 @@ void Pacman::Update(int elapsedTime)
 }
 
 
-void Pacman::Input(int elapsedTime, Input::KeyboardState* state)
+void Pacman::Input(int elapsedTime, Input::KeyboardState* state, Input::MouseState* mouseState)
 {
 	if (state->IsKeyDown(Input::Keys::D))
 	{
@@ -133,6 +153,12 @@ void Pacman::Input(int elapsedTime, Input::KeyboardState* state)
 	{
 		_player->_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
 		_player->_playerDirection = 1;
+	}
+
+	//Mouse
+	if (mouseState ->LeftButton == Input::ButtonState::PRESSED)
+	{
+
 	}
 }
 
@@ -177,19 +203,20 @@ void Pacman::UpdatePacman(int elapsedTime)
 	_player->_pacmanSourceRect->X = _player->_pacmanSourceRect->Width * _player->_playerFrame;  //uses spritesheets then changes the rect to show the right texture
 }
 
-void Pacman::UpdateMunchie(int elapsedTime)
+void Pacman::UpdateMunchie(Collectable* munchie, int elapsedTime)
 {
 	//munchie
-	_munchie->_munchieCurrentFrameTime += elapsedTime;
+	munchie->_munchieCurrentFrameTime += elapsedTime;
 
-	if (_munchie->_munchieCurrentFrameTime > _cMunchieFrameTime)
+	if (munchie->_munchieCurrentFrameTime > _cMunchieFrameTime)
 	{
-		_munchie->_munchieFrame++;
-		if (_munchie->_munchieFrame >= 2) { _munchie->_munchieFrame = 0; }
-		_munchie->_munchieCurrentFrameTime = 0;
+		munchie->_munchieFrame++;
+		if (munchie->_munchieFrame >= 2) { munchie->_munchieFrame = 0; }
+		munchie->_munchieCurrentFrameTime = 0;
 	}
 
-	_munchie->_munchieRect->X = _munchie->_munchieRect->Width * _munchie->_munchieFrame;
+	munchie->_munchieRect->X = munchie->_munchieRect->Width * munchie->_munchieFrame;
+	
 }
 
 void Pacman::UpdateCherry(int elapsedTime)
@@ -218,7 +245,12 @@ void Pacman::Draw(int elapsedTime)
 
 	SpriteBatch::BeginDraw(); // Starts Drawing
 	SpriteBatch::Draw(_player->_pacmanTexture, _player->_pacmanPosition, _player->_pacmanSourceRect); // Draws Pacman
-	SpriteBatch::Draw(_munchie->_munchieSheetTexture, _munchie->_munchiePosition, _munchie->_munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+	
+	for (int i = 0; i < MUNCHIECOUNT; i++)
+	{
+		SpriteBatch::Draw(_munchie[i]->_munchieSheetTexture, _munchie[i]->_munchiePosition, _munchie[i]->_munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+	}
+	
 	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 
 	//draws menu
