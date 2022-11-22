@@ -12,6 +12,7 @@
 
 #include "S2D/S2D.h"
 #define MUNCHIECOUNT 50
+#define ENEMYCOUNT 1
 // Reduces the amount of typing by including all classes in S2D namespace
 using namespace S2D;
 
@@ -30,7 +31,7 @@ struct Player
 	int _playerDirection;
 	int _playerFrame;
 	int _playerCurrentFrameTime;
-	
+	float speedMuiltiply; 
 
 };
 
@@ -45,6 +46,20 @@ struct Collectable
 	int _munchieCurrentFrameTime;
 	int _frameTime;
 };
+
+struct MovingEnemy
+{
+	Vector2* position;
+	Rect* sourceRect;
+	Texture2D* texture;
+
+	int direction;
+	int _Frame;
+	int _CurrentFrameTime;
+	int _frameTime;
+	float speed; 
+};
+
 
 class Pacman : public Game
 {
@@ -64,6 +79,9 @@ private:
 
 	Collectable* _munchie[MUNCHIECOUNT];
 	const int _cMunchieFrameTime;
+
+	MovingEnemy* _Minotaurs[ENEMYCOUNT];
+	const int _cMinotaurFrameTime;
 
 	// Position for String
 	Vector2* _stringPosition;

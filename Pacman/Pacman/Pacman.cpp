@@ -65,6 +65,7 @@ void Pacman::LoadContent()
 	_player->_pacmanTexture->Load("Textures/Pacman.tga", false);
 	_player->_pacmanPosition = new Vector2(350.0f, 350.0f);
 	_player->_pacmanSourceRect = new Rect(0.0f, 0.0f, 32, 32);
+	_player->speedMuiltiply = 1.0f; 
 
 	// Load Munchie
 
@@ -134,31 +135,35 @@ void Pacman::Update(int elapsedTime)
 
 void Pacman::Input(int elapsedTime, Input::KeyboardState* state, Input::MouseState* mouseState)
 {
+	if (state->IsKeyDown(Input::Keys::LEFTSHIFT)){ _player->speedMuiltiply = 2.0; }
+	else { _player->speedMuiltiply = 1.0; }
+
 	if (state->IsKeyDown(Input::Keys::D))
 	{
-		_player->_pacmanPosition->X += _cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+		_player->_pacmanPosition->X += _cPacmanSpeed * elapsedTime *_player->speedMuiltiply; //Moves Pacman across X axis
 		_player->_playerDirection = 0;
 	}
 	if (state->IsKeyDown(Input::Keys::A))
 	{
-		_player->_pacmanPosition->X += -_cPacmanSpeed * elapsedTime;
+		_player->_pacmanPosition->X += -_cPacmanSpeed * elapsedTime * _player->speedMuiltiply;
 		_player->_playerDirection = 2;
 	}
 	if (state->IsKeyDown(Input::Keys::W))
 	{
-		_player->_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime; //Moves Pacman across X axis
+		_player->_pacmanPosition->Y += -_cPacmanSpeed * elapsedTime * _player->speedMuiltiply; //Moves Pacman across X axis
 		_player->_playerDirection = 3;
 	}
 	if (state->IsKeyDown(Input::Keys::S))
 	{
-		_player->_pacmanPosition->Y += _cPacmanSpeed * elapsedTime;
+		_player->_pacmanPosition->Y += _cPacmanSpeed * elapsedTime * _player->speedMuiltiply;
 		_player->_playerDirection = 1;
 	}
 
 	//Mouse
 	if (mouseState ->LeftButton == Input::ButtonState::PRESSED)
 	{
-
+		_cherryPosition->X = mouseState->X; 
+		_cherryPosition->Y = mouseState->Y;
 	}
 }
 
