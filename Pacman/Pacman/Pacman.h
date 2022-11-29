@@ -24,6 +24,7 @@ using namespace S2D;
 
 struct Player
 {
+	bool dead; 
 	Vector2* _pacmanPosition;
 	Rect* _pacmanSourceRect;
 	Texture2D* _pacmanTexture;
@@ -54,6 +55,7 @@ struct MovingEnemy
 	Texture2D* texture;
 
 	int direction;
+	int _frameCount;
 	int _Frame;
 	int _CurrentFrameTime;
 	int _frameTime;
@@ -71,6 +73,8 @@ private:
 	void UpdatePacman(int elapsedTime);
 	void UpdateMunchie(Collectable* munchie, int elapsedTime);
 	void UpdateCherry(int elapsedTime);
+	void CheckGhostCollision();
+	void UpdateGhost(MovingEnemy*, int elapsedTime);
 	
 	Player* _player; 
 
@@ -80,7 +84,7 @@ private:
 	Collectable* _munchie[MUNCHIECOUNT];
 	const int _cMunchieFrameTime;
 
-	MovingEnemy* _Minotaurs[ENEMYCOUNT];
+	MovingEnemy* _Enemies[ENEMYCOUNT];
 	const int _cMinotaurFrameTime;
 
 	// Position for String
@@ -124,4 +128,6 @@ public:
 
 	/// <summary> Called every frame - draw game here. </summary>
 	void virtual Draw(int elapsedTime);
+
+	
 };

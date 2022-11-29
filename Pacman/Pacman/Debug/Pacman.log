@@ -10,30 +10,19 @@ C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.3
               _Ty=S2D::Input::Keys
           ]
 C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(48,17): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(48,17): warning C4154: deletion of an array expression; conversion to pointer supplied
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(57,19): warning C4154: deletion of an array expression; conversion to pointer supplied
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(77,97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(77,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(165,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(166,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(186,100): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(188,101): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(207,69): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(208,68): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(223,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(242,50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  main.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\vector(2045,41): warning C4251: 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>::_Mypair': class 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' needs to have dll-interface to be used by clients of class 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>'
-          with
-          [
-              _Ty=S2D::Input::Keys
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\vector(2045): message : see declaration of 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>'
-          with
-          [
-              _Ty=S2D::Input::Keys
-          ]
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
-  Generating Code...
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(57,17): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(57,17): warning C4154: deletion of an array expression; conversion to pointer supplied
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(66,19): warning C4154: deletion of an array expression; conversion to pointer supplied
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(86,97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(86,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(96,88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(96,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(184,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(185,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(205,100): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(207,101): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(226,69): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(227,68): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(242,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(261,50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Pacman.vcxproj -> C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Debug\Pacman.exe

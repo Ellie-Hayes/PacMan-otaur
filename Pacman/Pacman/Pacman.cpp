@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), _cPlayerFrameTime(250), _cMunchieFrameTime(500), _cCherryFrameTime(700)
+Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), _cPlayerFrameTime(250), _cMunchieFrameTime(500), _cCherryFrameTime(700), _cMinotaurFrameTime(100)
 {
 	_player = new Player();
 
@@ -16,15 +16,26 @@ Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), 
 		_munchie[i]->_frameTime = rand() % 500 + 50; 
 	}
 
+
+	for (int i = 0; i < ENEMYCOUNT; i++)
+	{
+		_Enemies[i] = new MovingEnemy();
+		_Enemies[i]->_CurrentFrameTime = 0;
+		_Enemies[i]->_frameCount = 0;
+		_Enemies[i]->_Frame = 0;
+		_Enemies[i]->_frameTime = rand() % 500 + 50;
+	}
 	//_munchie = new Collectable();
 	_paused = false;
 	_pKeyDown = false;
 	_showStart = true; 
 	_spaceKeyDown = false; 
-	_player->_playerDirection = 0;
 
+	_player->_playerDirection = 0;
 	_player->_playerCurrentFrameTime = 0;
 	_player->_playerFrame = 0;
+	_player->dead = false; 
+
 	_cherryCurrentFrameTime = 0;
 	_cherryFrame = 0;
 
@@ -77,6 +88,16 @@ void Pacman::LoadContent()
 		_munchie[i]->_munchiePosition = new Vector2((rand() % Graphics:: GetViewportWidth()), (rand() % Graphics::GetViewportHeight()));
 		_munchie[i]->_munchieSheetTexture = new Texture2D();
 		_munchie[i]->_munchieSheetTexture = munchieTex;
+	}
+
+	Texture2D* ghostTex = new Texture2D();
+	ghostTex->Load("Textures/GhostBlue.png", true);
+	for (int i = 0; i < ENEMYCOUNT; i++)
+	{
+		_Enemies[i]->sourceRect = new Rect(0.0f, 0.0f, 19, 19);
+		_Enemies[i]->position = new Vector2((rand() % Graphics::GetViewportWidth()), (rand() % Graphics::GetViewportHeight()));
+		_Enemies[i]->texture = new Texture2D();
+		_Enemies[i]->texture = ghostTex;
 	}
 
 	_cherrySourceRect = new Rect(0.0f, 0.0f, 32, 32);
@@ -242,6 +263,16 @@ void Pacman::UpdateCherry(int elapsedTime)
 	_cherrySourceRect->X = _cherrySourceRect->Width * _cherryFrame;
 }
 
+void Pacman::CheckGhostCollision()
+{
+	
+}
+
+void Pacman::UpdateGhost(MovingEnemy*, int elapsedTime)
+{
+
+}
+
 void Pacman::Draw(int elapsedTime)
 {
 	// Allows us to easily create a string
@@ -249,13 +280,23 @@ void Pacman::Draw(int elapsedTime)
 	stream << "Pacman X: " << _player->_pacmanPosition->X << " Y: " << _player->_pacmanPosition->Y;
 
 	SpriteBatch::BeginDraw(); // Starts Drawing
-	SpriteBatch::Draw(_player->_pacmanTexture, _player->_pacmanPosition, _player->_pacmanSourceRect); // Draws Pacman
+	if (!_player->dead)
+	{
+		SpriteBatch::Draw(_player->_pacmanTexture, _player->_pacmanPosition, _player->_pacmanSourceRect); // Draws Pacman
+	}
 	
 	for (int i = 0; i < MUNCHIECOUNT; i++)
 	{
 		SpriteBatch::Draw(_munchie[i]->_munchieSheetTexture, _munchie[i]->_munchiePosition, _munchie[i]->_munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 	}
 	
+	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+
+	for (int i = 0; i < ENEMYCOUNT; i++)
+	{
+		SpriteBatch::Draw(_Enemies[i]->texture, _Enemies[i]->position, _Enemies[i]->sourceRect, Vector2::Zero, 6.0f, 0.0f, Color::White, SpriteEffect::NONE);
+	}
+
 	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 
 	//draws menu
