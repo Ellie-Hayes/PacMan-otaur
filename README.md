@@ -1,2 +1,2 @@
 # PacMan-otaur
-Packman 
+Pacman 
