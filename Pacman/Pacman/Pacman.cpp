@@ -24,6 +24,8 @@ Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), 
 		_Enemies[i]->_frameCount = 0;
 		_Enemies[i]->_Frame = 0;
 		_Enemies[i]->_frameTime = rand() % 500 + 50;
+		_Enemies[i]->speed = 0.1; 
+		_Enemies[i]->direction = 0; 
 	}
 	//_munchie = new Collectable();
 	_paused = false;
@@ -39,9 +41,13 @@ Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), 
 	_cherryCurrentFrameTime = 0;
 	_cherryFrame = 0;
 
+	_pop = new SoundEffect();
+	
+
 	//Initialise important Game aspects
 	Graphics::Initialise(argc, argv, this, 1024, 768, false, 25, 25, "Pacman", 60);
 	Input::Initialise();
+	Audio::Initialise();
 
 	// Start the Game Loop - This calls Update and Draw in game loop
 	Graphics::StartGameLoop();
@@ -67,6 +73,15 @@ Pacman::~Pacman()
 	}
 	delete[] _munchie;
 
+	for (int i = 0; i < ENEMYCOUNT; i++)
+	{
+		delete _Enemies[i]->sourceRect;
+		delete _Enemies[i]->position;
+		delete _Enemies[i];
+	}
+	delete[] _Enemies;
+
+	delete _pop; 
 }
 
 void Pacman::LoadContent()
@@ -119,6 +134,8 @@ void Pacman::LoadContent()
 	_StartRectangle = new Rect(0.0f, 0.0f, Graphics::GetViewportWidth(), Graphics::GetViewportHeight());
 	_StartStringPosition = new Vector2(Graphics::GetViewportWidth() / 2.0f, Graphics::GetViewportHeight() / 3.0f);
 
+	_pop->Load("Sounds/pop.wav");
+
 }
 
 void Pacman::Update(int elapsedTime)
@@ -148,6 +165,11 @@ void Pacman::Update(int elapsedTime)
 			}
 
 			UpdateCherry(elapsedTime);
+
+			for (int i = 0; i < ENEMYCOUNT; i++)
+			{
+				UpdateGhost(_Enemies[i], elapsedTime);
+			}
 		}
 	}
 	
@@ -193,6 +215,7 @@ void Pacman::CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey)
 	if (state->IsKeyDown(pauseKey) && !_pKeyDown)
 	{
 		_pKeyDown = true;
+		Audio::Play(_pop);
 		_paused = !_paused;
 	}
 
@@ -221,7 +244,7 @@ void Pacman::UpdatePacman(int elapsedTime)
 		{
 			_player->_playerFrame = 0;
 		}
-		_player->_playerCurrentFrameTime = 0;
+		_player->_playerCurrentFrameTime = 0; 
 	}
 
 	//rotates pacman
@@ -268,9 +291,23 @@ void Pacman::CheckGhostCollision()
 	
 }
 
-void Pacman::UpdateGhost(MovingEnemy*, int elapsedTime)
+void Pacman::UpdateGhost(MovingEnemy* ghost, int elapsedTime)
 {
+	if (ghost->direction == 0) { ghost->position->X += ghost->speed * elapsedTime; }
+	else if (ghost->direction == 1)
+	{
+		ghost->position->X -= ghost->speed * elapsedTime;
+	}
 
+	if (ghost->position->X + ghost->sourceRect->Width >= Graphics::GetViewportWidth())
+	{
+		ghost->direction = 1;
+	}
+	else if (ghost->position->X <= 0)
+	{
+		ghost->direction = 0; 
+	}
+	
 }
 
 void Pacman::Draw(int elapsedTime)

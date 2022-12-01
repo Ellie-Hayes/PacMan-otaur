@@ -11,8 +11,9 @@
 // Just need to include main header file
 
 #include "S2D/S2D.h"
+#include <iostream>
 #define MUNCHIECOUNT 50
-#define ENEMYCOUNT 1
+#define ENEMYCOUNT 2
 // Reduces the amount of typing by including all classes in S2D namespace
 using namespace S2D;
 
@@ -74,7 +75,7 @@ private:
 	void UpdateMunchie(Collectable* munchie, int elapsedTime);
 	void UpdateCherry(int elapsedTime);
 	void CheckGhostCollision();
-	void UpdateGhost(MovingEnemy*, int elapsedTime);
+	void UpdateGhost(MovingEnemy* ghost, int elapsedTime);
 	
 	Player* _player; 
 
@@ -112,6 +113,10 @@ private:
 	Vector2* _cherryPosition;
 	Rect* _cherrySourceRect;
 	Texture2D* _cherryTexture;
+
+	//Audio
+
+	SoundEffect* _pop; 
 
 public:
 	/// <summary> Constructs the Pacman class. </summary>
