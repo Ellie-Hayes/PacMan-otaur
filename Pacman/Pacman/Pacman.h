@@ -53,6 +53,11 @@ struct Collectable
 	int _frameTime;
 };
 
+struct projectile
+{
+	
+};
+
 class Enemies
 {
 	public:

@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <vector>
+#include <ctgmath>
 
 Pacman::Pacman(int argc, char* argv[]) : Game(argc, argv), _cPacmanSpeed(0.1f), _cPlayerFrameTime(100), _cMunchieFrameTime(500), _cCherryFrameTime(700), _cMinotaurFrameTime(100)
 {
@@ -349,21 +350,29 @@ void Pacman::CheckGhostCollision()
 
 void Pacman::UpdateGhost(Enemies::MovingEnemy* ghost, int elapsedTime)
 {
-	if (ghost->direction == 0) { ghost->position->X += ghost->speed * elapsedTime; }
-	else if (ghost->direction == 1)
-	{
-		ghost->position->X -= ghost->speed * elapsedTime;
-	}
 
-	if (ghost->position->X + ghost->sourceRect->Width >= Graphics::GetViewportWidth())
-	{
-		ghost->direction = 1;
-	}
-	else if (ghost->position->X <= 0)
-	{
-		ghost->direction = 0; 
-	}
+	//if (ghost->direction == 0) { ghost->position->X += ghost->speed * elapsedTime; }
+	//else if (ghost->direction == 1)
+	//{
+	//	ghost->position->X -= ghost->speed * elapsedTime;
+	//}
+
+	//if (ghost->position->X + ghost->sourceRect->Width >= Graphics::GetViewportWidth())
+	//{
+	//	ghost->direction = 1;
+	//}
+	//else if (ghost->position->X <= 0)
+	//{
+	//	ghost->direction = 0; 
+	//}
 	
+	int diffX = _player->_pacmanPosition->X - ghost->position->X;
+	int diffY = _player->_pacmanPosition->Y - ghost->position->Y;
+
+	float angle = (float)atan2(diffY, diffX);
+
+	ghost->position->X += ghost->speed * cos(angle);
+	ghost->position->Y += ghost->speed * sin(angle);
 }
 
 void Pacman::SpawnWave()
