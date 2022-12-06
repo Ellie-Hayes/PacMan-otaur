@@ -10,8 +10,10 @@
 
 // Just need to include main header file
 
+
 #include "S2D/S2D.h"
 #include <iostream>
+#include <vector>
 #define MUNCHIECOUNT 50
 #define ENEMYCOUNT 2
 // Reduces the amount of typing by including all classes in S2D namespace
@@ -25,6 +27,8 @@ using namespace S2D;
 
 struct Player
 {
+	enum PlayerState { Idle, Walking, Attacking, Dead, Hurt };
+	PlayerState currentState; 
 	bool dead; 
 	Vector2* _pacmanPosition;
 	Rect* _pacmanSourceRect;
@@ -49,43 +53,91 @@ struct Collectable
 	int _frameTime;
 };
 
-struct MovingEnemy
+class Enemies
 {
-	Vector2* position;
-	Rect* sourceRect;
-	Texture2D* texture;
+	public:
+		enum EnemyType {Minotaur, gear, vines};
 
-	int direction;
-	int _frameCount;
-	int _Frame;
-	int _CurrentFrameTime;
-	int _frameTime;
-	float speed; 
+	class MovingEnemy
+	{
+		public:
+		enum EnemyState { Idle, Walking, Attacking, Dead, Hurt };
+		Vector2* position;
+		Rect* sourceRect;
+		Texture2D* texture;
+
+		int direction;
+		int _frameCount;
+		int _Frame;
+		int _CurrentFrameTime;
+		int _frameTime;
+		float speed;
+	};
+
+	class gearEnemy
+	{
+		public:
+		Vector2* position;
+		Rect* sourceRect;
+		Texture2D* textureOuter;
+		Texture2D* textureinner;
+	};
 };
+
+struct WaveSpawner
+{
+	enum SpawnState { Spawning, Waiting, Counting };
+	SpawnState state;
+
+	const int enemyArray[20]{
+		1, 3, 4, 6,
+		8, 9, 10, 12,
+		15, 18, 19, 20,
+		19, 28, 39, 50,
+		50, 50, 60, 60,
+	};
+
+	int nextWave;
+	float timeBetweenWaves;
+	float WaveCountdown;
+	float SearchCountdown;
+	float spawnRate;
+	int EnemyTypeCount;
+
+	vector<Enemies::MovingEnemy*> Minotaurs;
+	vector<Enemies::gearEnemy*> gears;
+};
+
 
 
 class Pacman : public Game
 {
 private:
 
+	Enemies* _enemyClass;
+	WaveSpawner *_wavespawner;
 	void Input(int elapsedTime, Input::KeyboardState* state, Input::MouseState* mouseState);
 	void CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey);
 	void CheckViewportCollision();
-	void UpdatePacman(int elapsedTime);
+	void UpdatePacman(int elapsedTime, Player::PlayerState state);
 	void UpdateMunchie(Collectable* munchie, int elapsedTime);
 	void UpdateCherry(int elapsedTime);
 	void CheckGhostCollision();
-	void UpdateGhost(MovingEnemy* ghost, int elapsedTime);
-	
+	void UpdateGhost(Enemies::MovingEnemy* ghost, int elapsedTime);
+	void SpawnWave();
+	void CheckWaveComplete(); 
+	bool EnemiesAlive();
+	void NewEnemy(Enemies::EnemyType enemyType, Texture2D* texture1, Texture2D* texture2);
 	Player* _player; 
-
+	
+	
 	const float _cPacmanSpeed;
 	const int _cPlayerFrameTime;
 
 	Collectable* _munchie[MUNCHIECOUNT];
 	const int _cMunchieFrameTime;
 
-	MovingEnemy* _Enemies[ENEMYCOUNT];
+	/*Enemies::MovingEnemy* _Enemies[ENEMYCOUNT];*/
 	const int _cMinotaurFrameTime;
 
 	// Position for String
@@ -136,3 +188,4 @@ public:
 
 	
 };
+
