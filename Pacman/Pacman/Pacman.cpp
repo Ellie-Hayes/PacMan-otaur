@@ -383,13 +383,13 @@ void Pacman::SpawnWave()
 		{
 			//runs for loop twice for each enemy
 			Texture2D* ghostTex = new Texture2D();
-			ghostTex->Load("Textures/MinotaurSpritesheet.png", true);
+			ghostTex->Load("Textures/MinotaurSpritesheet.png", false);
 			
 			Texture2D* GearOuterText = new Texture2D();
-			GearOuterText->Load("Textures/CogOuter.png", true);
+			GearOuterText->Load("Textures/CogOuter.png", false);
 
 			Texture2D* GearInnerTex = new Texture2D();
-			GearInnerTex->Load("Textures/CogInner.png", true);
+			GearInnerTex->Load("Textures/CogInner.png", false);
 			if (i == 0)
 			{
 				for (int i = 0; i < _wavespawner->enemyArray[_wavespawner->nextWave]; i++)
@@ -439,7 +439,7 @@ void Pacman::NewEnemy(Enemies::EnemyType enemyType, Texture2D* texture1, Texture
 		tempObject->speed = 0.1;
 		tempObject->direction = 0;
 
-		tempObject->sourceRect = new Rect(0.0f, 0.0f, 30, 30);
+		tempObject->sourceRect = new Rect(0.0f, 0.0f, 90, 90);
 		tempObject->position = new Vector2((rand() % Graphics::GetViewportWidth()), (rand() % Graphics::GetViewportHeight()));
 		tempObject->texture = new Texture2D();
 		tempObject->texture = texture1;
@@ -472,7 +472,7 @@ void Pacman::Draw(int elapsedTime)
 	SpriteBatch::BeginDraw(); // Starts Drawing
 	if (!_player->dead)
 	{
-		SpriteBatch::Draw(_player->_pacmanTexture, _player->_pacmanPosition, _player->_pacmanSourceRect, Vector2::Zero, 3.0f, 0.0f, Color::White, SpriteEffect::NONE); // Draws Pacman
+		SpriteBatch::Draw(_player->_pacmanTexture, _player->_pacmanPosition, _player->_pacmanSourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE); // Draws Pacman
 	}
 	
 	for (int i = 0; i < MUNCHIECOUNT; i++)
@@ -489,13 +489,13 @@ void Pacman::Draw(int elapsedTime)
 
 	for (int i = 0; i < _wavespawner->Minotaurs.size(); i++)
 	{
-		SpriteBatch::Draw(_wavespawner->Minotaurs[i]->texture, _wavespawner->Minotaurs[i]->position, _wavespawner->Minotaurs[i]->sourceRect, Vector2::Zero, 3.0f, 0.0f, Color::White, SpriteEffect::NONE);
+		SpriteBatch::Draw(_wavespawner->Minotaurs[i]->texture, _wavespawner->Minotaurs[i]->position, _wavespawner->Minotaurs[i]->sourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 	}
 
 	for (int i = 0; i < _wavespawner->gears.size(); i++)
 	{
-		SpriteBatch::Draw(_wavespawner->gears[i]->textureOuter, _wavespawner->gears[i]->position, _wavespawner->gears[i]->sourceRect, Vector2::Zero, 3.0f, 0.0f, Color::White, SpriteEffect::NONE);
-		SpriteBatch::Draw(_wavespawner->gears[i]->textureinner, _wavespawner->gears[i]->position, _wavespawner->gears[i]->sourceRect, Vector2::Zero, 3.0f, 0.0f, Color::White, SpriteEffect::NONE);
+		SpriteBatch::Draw(_wavespawner->gears[i]->textureOuter, _wavespawner->gears[i]->position, _wavespawner->gears[i]->sourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+		SpriteBatch::Draw(_wavespawner->gears[i]->textureinner, _wavespawner->gears[i]->position, _wavespawner->gears[i]->sourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 	}
 
 	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
