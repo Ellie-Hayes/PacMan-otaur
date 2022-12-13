@@ -39,6 +39,13 @@ struct Player
 	int _playerCurrentFrameTime;
 	float speedMuiltiply; 
 
+	float KnockbackAngle;
+	float KnockbackPower; 
+	Rect* _pacmanHitbox;
+
+	int health;
+	int damage;
+
 };
 
 struct Collectable
@@ -53,9 +60,20 @@ struct Collectable
 	int _frameTime;
 };
 
-struct projectile
+struct Projectile
 {
-	
+	enum type {playerSpawned, gearSpawned, MinotaurSpawned}; //to define different bullet behaviours
+	type projectileType; 
+	Vector2* _projectilePosition;
+	Vector2* _targetPosition;
+	Rect* _projectileRect;
+	Texture2D* _projectileSheetTexture;
+	float size; 
+	float speed; 
+	float angle; 
+
+	Vector2* _centerPoint;
+	float rotation; 
 };
 
 class Enemies
@@ -63,10 +81,14 @@ class Enemies
 	public:
 		enum EnemyType {Minotaur, gear, vines};
 
+		
+
 	class MovingEnemy
 	{
 		public:
 		enum EnemyState { Idle, Walking, Attacking, Dead, Hurt };
+		EnemyState currentState; 
+
 		Vector2* position;
 		Rect* sourceRect;
 		Texture2D* texture;
@@ -77,6 +99,12 @@ class Enemies
 		int _CurrentFrameTime;
 		int _frameTime;
 		float speed;
+
+		float knockbackAngle;
+		bool alreadyColliding;
+
+		int health;
+		int damage;
 	};
 
 	class gearEnemy
@@ -86,6 +114,14 @@ class Enemies
 		Rect* sourceRect;
 		Texture2D* textureOuter;
 		Texture2D* textureinner;
+
+		int _frameCount;
+		int _Frame;
+		int _CurrentFrameTime;
+		int _frameTime;
+
+		int health;
+		int damage;
 	};
 };
 
@@ -121,30 +157,52 @@ private:
 
 	Enemies* _enemyClass;
 	WaveSpawner *_wavespawner;
+
+	//Game functions 
 	void Input(int elapsedTime, Input::KeyboardState* state, Input::MouseState* mouseState);
 	void CheckPaused(Input::KeyboardState* state, Input::Keys pauseKey);
 	void CheckViewportCollision();
+	
+	//Player and collectable functions 
 	void UpdatePacman(int elapsedTime, Player::PlayerState state);
 	void UpdateMunchie(Collectable* munchie, int elapsedTime);
 	void UpdateCherry(int elapsedTime);
-	void CheckGhostCollision();
+
+	//Enemy functions  
+	void HandleAllCollision();
+	bool CheckCollisions(int x1, int y1, int width1, int height1, int x2, int y2, int width2, int height2);
 	void UpdateGhost(Enemies::MovingEnemy* ghost, int elapsedTime);
 	void SpawnWave();
 	void CheckWaveComplete(); 
-	bool EnemiesAlive();
 	void NewEnemy(Enemies::EnemyType enemyType, Texture2D* texture1, Texture2D* texture2);
+
+	void CheckEnemyPos(Vector2* position, Rect* sourceRect);
+	void UpdateGear(Enemies::gearEnemy* gearObj, int elapsedTime);
+	
+	//Projectile functions
+	void MoveProjectiles(Projectile* projectileUpdating);
+	void SpawnProjectile(Rect* passedRect, Vector2* passedPosition, Vector2* targetPosition, float passedAngle, bool enlarged, bool playerSpawned);
+	bool deleteProjectile(Projectile* projectile);
+
+	bool CheckHealth(int health);
+	vector<Projectile*> projectilesEnemies;
+	vector<Projectile*> projectilesPlayer;
+
+
 	Player* _player; 
-	
-	
 	const float _cPacmanSpeed;
 	const int _cPlayerFrameTime;
+
+	//score data
+	int playerScore; 
+	Vector2* _scoreTextPosition;
 
 	Collectable* _munchie[MUNCHIECOUNT];
 	const int _cMunchieFrameTime;
 
 	/*Enemies::MovingEnemy* _Enemies[ENEMYCOUNT];*/
 	const int _cMinotaurFrameTime;
-
+	const int _cGearFrameTime;
 	// Position for String
 	Vector2* _stringPosition;
 
@@ -154,6 +212,7 @@ private:
 	Vector2* _menuStringPosition; 
 	bool _paused;
 	bool _pKeyDown;
+	bool _mouseDown; 
 
 	//Start Menu data
 	Texture2D* _StartBackground;
@@ -161,6 +220,9 @@ private:
 	Vector2* _StartStringPosition;
 	bool _showStart;
 	bool _spaceKeyDown;
+
+	Texture2D* _GameBackground;
+	Texture2D* _GameShadow;
 
 	int _cherryFrame;
 	int _cherryCurrentFrameTime;
@@ -171,6 +233,14 @@ private:
 	Rect* _cherrySourceRect;
 	Texture2D* _cherryTexture;
 
+	Texture2D* _ghostTex;
+	Texture2D* _gearOuterTex;
+	Texture2D* _gearInnerTex;
+	Texture2D* _bulletTex;
+	Texture2D* _attackTex;
+
+	Vector2* _mousePos;
+	
 	//Audio
 
 	SoundEffect* _pop; 
