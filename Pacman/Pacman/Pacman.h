@@ -138,6 +138,7 @@ struct WaveSpawner
 		50, 50, 60, 60,
 	};
 
+
 	int nextWave;
 	float timeBetweenWaves;
 	float WaveCountdown;

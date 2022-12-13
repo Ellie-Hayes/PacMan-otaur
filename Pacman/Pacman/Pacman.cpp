@@ -458,13 +458,23 @@ void Pacman::HandleAllCollision()
 		
 	}
 
+	for (int i = 0; i < _wavespawner->Minotaurs.size(); i++)
+	{
+		if (CheckCollisions(_player->_pacmanPosition->X, _player->_pacmanPosition->Y, _player->_pacmanSourceRect->Width, _player->_pacmanSourceRect->Height, _wavespawner->Minotaurs[i]->position->X, _wavespawner->Minotaurs[i]->position->Y, _wavespawner->Minotaurs[i]->sourceRect->Width, _wavespawner->Minotaurs[i]->sourceRect->Height))
+		{
+			_wavespawner->Minotaurs[i]->currentState = Enemies::MovingEnemy::Attacking;
+			//SpawnProjectile(_wavespawner->Minotaurs[i]->sourceRect, _wavespawner->Minotaurs[i]->position, NULL, _wavespawner->Minotaurs[i]->direction * 55, true, false);
+		}
+
+	}
+
 	for (int i = 0; i < projectilesEnemies.size(); i++)
 	{
 		if (CheckCollisions(_player->_pacmanPosition->X, _player->_pacmanPosition->Y, _player->_pacmanHitbox->Width, _player->_pacmanHitbox->Height, projectilesEnemies[i]->_projectilePosition->X, projectilesEnemies[i]->_projectilePosition->Y, projectilesEnemies[i]->_projectileRect->Width, projectilesEnemies[i]->_projectileRect->Height))
 		{
 			_player->currentState = Player::Hurt;
 			_player->_playerFrame = 6;
-
+			_player->health -= 1;
 			int diffX = projectilesEnemies[i]->_projectilePosition->X - _player->_pacmanPosition->X;
 			int diffY = projectilesEnemies[i]->_projectilePosition->Y - _player->_pacmanPosition->Y;
 
@@ -779,7 +789,7 @@ void Pacman::Draw(int elapsedTime)
 	
 	for (int i = 0; i < MUNCHIECOUNT; i++)
 	{
-		//SpriteBatch::Draw(_munchie[i]->_munchieSheetTexture, _munchie[i]->_munchiePosition, _munchie[i]->_munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
+		SpriteBatch::Draw(_munchie[i]->_munchieSheetTexture, _munchie[i]->_munchiePosition, _munchie[i]->_munchieRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
 	}
 	
 	SpriteBatch::Draw(_cherryTexture, _cherryPosition, _cherrySourceRect, Vector2::Zero, 1.0f, 0.0f, Color::White, SpriteEffect::NONE);
