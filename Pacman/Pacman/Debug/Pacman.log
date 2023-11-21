@@ -1,99 +1,112 @@
-<<<<<<< HEAD
 ﻿  Pacman.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\vector(2045,41): warning C4251: 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>::_Mypair': class 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' needs to have dll-interface to be used by clients of class 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>'
+D:\Visual studio files\Vis2022 Updated\VC\Tools\MSVC\14.34.31933\include\vector(2261,41): warning C4251: 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>::_Mypair': class 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' needs to have dll-interface to be used by clients of class 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>'
           with
           [
               _Ty=S2D::Input::Keys
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\vector(2045): message : see declaration of 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>'
+D:\Visual studio files\Vis2022 Updated\VC\Tools\MSVC\14.34.31933\include\vector(2261,5): message : see declaration of 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>'
           with
           [
               _Ty=S2D::Input::Keys
           ]
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(71,17): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(71,17): warning C4154: deletion of an array expression; conversion to pointer supplied
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(80,19): warning C4154: deletion of an array expression; conversion to pointer supplied
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(103,97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(103,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(184,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(195,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(197,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(199,280): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(199,243): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(199,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(199,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(207,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(209,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(211,288): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(211,247): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(211,113): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(211,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(222,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(233,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(307,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(307,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(334,204): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(336,208): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(380,69): warning C4244: '=': conversion from 'std::_Underlying_type<_Ty,true>::type' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108,56): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(79,17): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(79,17): warning C4154: deletion of an array expression; conversion to pointer supplied
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(88,19): warning C4154: deletion of an array expression; conversion to pointer supplied
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(90,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(97,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(105,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(112,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(146,97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(146,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(239,27): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(243,22): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(257,22): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(268,22): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(342,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(342,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(366,204): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(368,208): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(406,69): warning C4244: '=': conversion from 'std::_Underlying_type<_Ty,true>::type' to 'float', possible loss of data
           with
           [
               _Ty=Player::PlayerState
           ]
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(381,68): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(396,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(415,50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(421,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(423,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(425,278): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(425,241): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(425,111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(425,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(434,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(436,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(438,286): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(438,245): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(438,111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(438,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(451,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(453,229): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(453,188): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(453,76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(453,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(461,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(463,229): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(463,188): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(463,76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(463,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(471,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(473,233): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(473,186): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(473,76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(473,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(478,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(479,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(515,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(516,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(550,79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(571,51): warning C4244: '=': conversion from 'std::_Underlying_type<_Ty,true>::type' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(407,68): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(422,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(441,50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(447,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(449,21): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(451,278): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(451,241): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(451,111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(451,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(460,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(462,21): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(464,286): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(464,245): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(464,111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(464,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(477,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(479,229): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(479,188): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(479,76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(479,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(487,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(489,243): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(489,196): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(489,85): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(489,51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(495,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(496,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(505,217): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(505,183): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(505,85): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(505,51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(542,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(543,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(577,79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(598,51): warning C4244: '=': conversion from 'std::_Underlying_type<_Ty,true>::type' to 'float', possible loss of data
           with
           [
               _Ty=Player::PlayerState
           ]
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(572,50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(634,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(634,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(649,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(649,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(663,140): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(665,144): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(709,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(710,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(780,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(797,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(802,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Pacman\Pacman.cpp(808,20): warning C4018: '<': signed/unsigned mismatch
-  Pacman.vcxproj -> C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Debug\Pacman.exe
-=======
-﻿  Pacman.vcxproj -> C:\Users\h014896m\Documents\GitHub\PacMan-otaur\Pacman\Debug\Pacman.exe
->>>>>>> parent of 4e79c2b (Further animations and AI)
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(599,50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(661,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(661,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(676,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(676,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(690,140): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(692,144): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(736,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(737,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(807,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(822,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(827,20): warning C4018: '<': signed/unsigned mismatch
+D:\Github test\PacMan-otaur\Pacman\Pacman\Pacman.cpp(833,20): warning C4018: '<': signed/unsigned mismatch
+  Wave.cpp
+D:\Visual studio files\Vis2022 Updated\VC\Tools\MSVC\14.34.31933\include\vector(2261,41): warning C4251: 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>::_Mypair': class 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' needs to have dll-interface to be used by clients of class 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>'
+          with
+          [
+              _Ty=S2D::Input::Keys
+          ]
+D:\Visual studio files\Vis2022 Updated\VC\Tools\MSVC\14.34.31933\include\vector(2261,5): message : see declaration of 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>'
+          with
+          [
+              _Ty=S2D::Input::Keys
+          ]
+D:\Github test\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108,56): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
+  main.cpp
+D:\Visual studio files\Vis2022 Updated\VC\Tools\MSVC\14.34.31933\include\vector(2261,41): warning C4251: 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>::_Mypair': class 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' needs to have dll-interface to be used by clients of class 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>'
+          with
+          [
+              _Ty=S2D::Input::Keys
+          ]
+D:\Visual studio files\Vis2022 Updated\VC\Tools\MSVC\14.34.31933\include\vector(2261,5): message : see declaration of 'std::_Compressed_pair<std::allocator<S2D::Input::Keys>,std::_Vector_val<std::_Simple_types<_Ty>>,true>'
+          with
+          [
+              _Ty=S2D::Input::Keys
+          ]
+D:\Github test\PacMan-otaur\Pacman\Pacman\S2D\Input.h(108,56): message : see reference to class template instantiation 'std::vector<S2D::Input::Keys,std::allocator<S2D::Input::Keys>>' being compiled
+  Generating Code...
+  Pacman.vcxproj -> D:\Github test\PacMan-otaur\Pacman\Debug\Pacman.exe
